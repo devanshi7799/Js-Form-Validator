@@ -1,7 +1,7 @@
 # Js-Form-Validator
 
 This is a simple form validator project made using vanilla javascript. 
-It contains validations for the following: 
+It contains the following validations: 
 
 1. Non empty input fields.
 2. Valid Email address.
