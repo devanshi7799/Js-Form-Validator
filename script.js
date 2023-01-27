@@ -81,6 +81,16 @@ function getFieldName(input) {
   return input.id.charAt(0).toUpperCase() + input.id.slice(1);
 }
 
+function checkUsernameLength(input,min,max) {
+  if(input.value.length<min) {
+    showError(input,`${getFieldName(input)} must be atleast ${min} characters`);
+
+  } else if(input.value.length>max) {
+    showError(input,`${getFieldName(input)} must be less than ${max} characters`);
+  } else {
+    showSuccess(input);
+  }
+}
 
 //check input length
 function checkLength(input,min,max) {
@@ -90,7 +100,16 @@ function checkLength(input,min,max) {
   } else if(input.value.length>max) {
     showError(input,`${getFieldName(input)} must be less than ${max} characters`);
   } else {
-    showSuccess(input);
+    const containsNum = input.value.match(/\d+/g);
+    const containsspecialChar = input.value.match(/[ `!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/);
+
+    if(containsNum!=null && containsspecialChar != null)
+    {
+      showSuccess(input);
+    }
+    else{
+      showError(input,'Password must contain 1 number and 1 special character')
+    }
   }
 }
 
@@ -107,7 +126,7 @@ form.addEventListener('submit',function(e){
   e.preventDefault();
   
   checkRequire([username,email,password,password2]);
-  checkLength(username,3,15);
+  checkUsernameLength(username,3,15);
   checkLength(password,6,25);
   checkPasswordMatch(password,password2);
 });
